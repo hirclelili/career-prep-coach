@@ -1,0 +1,194 @@
+# Career Prep Coach
+
+一个面向求职准备的独立 Codex Skill，专注于两件事：
+
+1. 把零散的实习、工作、项目、创业或校园经历，深挖成可复用的完整经历档案。
+2. 基于具体 JD 和真实经历，生成面试手册与岗位知识体系。
+
+它不依赖配套网页，也不要求用户单独配置模型 API。安装后直接在支持 Skill 的 Agent 中使用即可。
+
+## 核心能力
+
+### 经历深挖
+
+- 自动识别一段经历中包含的多个项目或工作模块。
+- 每轮只追问一个最影响成品质量的问题。
+- 根据已有经历提供可选答案，支持单选、多选和自由补充。
+- 区分用户确认的事实、模型推断和 AI 建议，不擅自补写成果。
+- 多项目经历会逐个覆盖，不会只分析一个项目就提前结束。
+- 最终产出：
+  - 详细经历底稿
+  - 当前单段经历的简历 bullet
+  - 800–1200 字完整经历故事
+  - 30 秒与 90 秒面试表达
+  - 核心亮点
+  - 高频追问与应对思路
+
+### 面试准备
+
+- 首次收到 JD 时先完成岗位拆解，不会直接生成一整套泛化内容。
+- 用户确认拆解后，再生成完整七章面试手册。
+- 面试问题预测包含 15–20 道题，并结合用户真实经历给出回答结构。
+- 明确区分：
+  - 直接命中
+  - 可迁移能力
+  - 部分覆盖
+  - 真实缺口
+- 可单独生成岗位知识体系：
+  - Mermaid 思维导图
+  - 2–4 个知识模块
+  - 核心概念、应用场景、指标与具体例子
+  - 应用场景总览
+
+### 局部优化
+
+可以只优化某一个成品块，而不覆盖整份内容：
+
+- 单条简历 bullet
+- 经历档案中的某个部分
+- 面试手册中的某一章
+- 知识体系中的某个模块
+
+## 使用流程
+
+### 经历分析
+
+```text
+使用 $career-prep-coach 深挖下面这段经历：
+
+[粘贴经历内容]
+```
+
+Skill 会先确认经历范围，再通过低负担追问补齐背景、行动、判断、结果证据和个人贡献边界。信息充分后，用户可以选择：
+
+- **精准模式**：只使用已确认事实。
+- **增强模式**：允许给出待确认的 AI 建议，并明确标记。
+
+### 面试准备
+
+```text
+使用 $career-prep-coach，结合我的经历帮我准备这个岗位的面试：
+
+[粘贴 JD]
+[粘贴简历或经历档案]
+```
+
+面试准备采用分阶段流程：
+
+```text
+JD 拆解
+  ↓ 用户确认
+七章面试手册
+  ↓ 按需继续
+知识体系 / 模拟追问 / 局部优化
+```
+
+### 局部改写
+
+```text
+使用 $career-prep-coach，只优化下面这条 bullet，让个人判断和方法更具体：
+
+[粘贴 bullet]
+```
+
+Skill 只返回原文和 2–3 个替换候选，不会重写整份档案。
+
+## 安装
+
+### 在 Codex 中安装
+
+在 Codex 中直接发送：
+
+```text
+请使用 skill-installer 安装这个 Skill：
+https://github.com/hirclelili/career-prep-coach
+```
+
+安装完成后，在下一条消息中使用 `$career-prep-coach`。
+
+### 使用安装脚本
+
+```bash
+python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
+  --repo hirclelili/career-prep-coach \
+  --path . \
+  --name career-prep-coach \
+  --method git
+```
+
+默认安装到：
+
+```text
+~/.codex/skills/career-prep-coach
+```
+
+如果目标目录已经存在，请先更新现有安装或选择新的安装目录，不要直接覆盖未知文件。
+
+## 事实安全
+
+这个 Skill 把内容分为三类：
+
+| 类型 | 含义 | 使用方式 |
+|---|---|---|
+| `confirmed` | 用户原文或明确确认的信息 | 可以写入正式成品 |
+| `inferred` | 根据行业或岗位作出的合理推断 | 只能作为追问选项 |
+| `suggested` | 为补全方法或流程提供的 AI 建议 | 必须标记并等待确认 |
+
+不会自动虚构：
+
+- 数据结果
+- 上线效果
+- 用户反馈
+- 公司内部事实
+- 奖项与评价
+- 个人贡献边界
+- 未实际使用过的 RAG、Agent 或其他技术方案
+
+## 搜索能力
+
+如果宿主 Agent 已经提供网页搜索工具，Skill 可以在准备面试时按需查询公司官网、业务介绍和同类岗位信息。
+
+搜索只用于补充公司、业务和岗位语境，不会被用来补写用户的个人经历。没有搜索工具时，Skill 仍可仅根据 JD 和用户材料正常工作。
+
+## 不包含的功能
+
+- 不拼装或排版整份简历。
+- 不提供简历 Word、PDF 或图片导出。
+- 不依赖原网页项目的岗位库、经历库或浏览器缓存。
+- 不自动把草稿视为已保存档案。
+
+单段经历的简历 bullet 属于经历分析产物，因此仍然保留。
+
+## 项目结构
+
+```text
+career-prep-coach/
+├── SKILL.md
+├── agents/
+│   └── openai.yaml
+├── references/
+│   ├── experience-workflow.md
+│   ├── experience-dossier.md
+│   ├── interview-workflow.md
+│   ├── interview-manual.md
+│   ├── knowledge-system.md
+│   └── quality-gates.md
+└── scripts/
+    └── validate_artifact.py
+```
+
+## 产物校验
+
+保存 Markdown 产物后，可以运行：
+
+```bash
+python3 scripts/validate_artifact.py experience <经历档案路径>
+python3 scripts/validate_artifact.py manual <面试手册路径>
+python3 scripts/validate_artifact.py knowledge <知识体系路径>
+```
+
+校验器会检查必需章节、问题数量、思维导图、禁止标记和常见结构错误。
+
+## License
+
+当前项目尚未添加开源许可证。在添加许可证前，代码默认保留全部权利。
