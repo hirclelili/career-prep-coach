@@ -1,0 +1,4 @@
+interface:
+  display_name: "求职经历与面试教练"
+  short_description: "深挖经历档案，并围绕 JD 生成面试手册与知识体系"
+  default_prompt: "使用 $career-prep-coach 深挖我的一段经历，或者基于一份 JD 帮我准备面试。"

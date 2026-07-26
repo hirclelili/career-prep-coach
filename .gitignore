@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+career-prep-output/
+.DS_Store
