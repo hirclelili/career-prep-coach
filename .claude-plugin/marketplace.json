@@ -1,0 +1,22 @@
+{
+  "name": "career-prep-coach",
+  "owner": {
+    "name": "hirclelili"
+  },
+  "metadata": {
+    "description": "求职经历深挖、JD 拆解与面试准备 Skill"
+  },
+  "plugins": [
+    {
+      "name": "career-prep-coach",
+      "source": "./",
+      "description": "深挖求职经历，并结合具体 JD 生成面试手册与岗位知识体系。",
+      "category": "productivity",
+      "tags": [
+        "career",
+        "resume",
+        "interview"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "career-prep-coach",
+  "description": "深挖求职经历，并结合具体 JD 生成面试手册与岗位知识体系。",
+  "version": "1.0.0",
+  "author": {
+    "name": "hirclelili"
+  },
+  "homepage": "https://github.com/hirclelili/career-prep-coach",
+  "repository": "https://github.com/hirclelili/career-prep-coach",
+  "keywords": [
+    "career",
+    "resume",
+    "interview",
+    "job-description"
+  ]
+}

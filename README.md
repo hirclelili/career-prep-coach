@@ -1,6 +1,6 @@
 # Career Prep Coach
 
-一个面向求职准备的独立 Codex Skill，专注于两件事：
+一个面向求职准备的独立 Agent Skill，支持 Claude Code、Claude.ai 和 Codex，专注于两件事：
 
 1. 把零散的实习、工作、项目、创业或校园经历，深挖成可复用的完整经历档案。
 2. 基于具体 JD 和真实经历，生成面试手册与岗位知识体系。
@@ -95,6 +95,27 @@ Skill 只返回原文和 2–3 个替换候选，不会重写整份档案。
 
 ## 安装
 
+### 在 Claude Code 中直接安装
+
+在 Claude Code 对话中依次输入：
+
+```text
+/plugin marketplace add hirclelili/career-prep-coach
+/plugin install career-prep-coach@career-prep-coach
+/reload-plugins
+```
+
+安装后，直接说“帮我深挖这段经历”或“结合我的经历拆解这个 JD”即可触发。
+
+### 在 Claude.ai 中安装
+
+1. 下载 [`dist/career-prep-coach.zip`](dist/career-prep-coach.zip)
+2. 打开 Claude 的 `Customize → Skills`
+3. 点击 `+ → Create skill → Upload a skill`
+4. 上传 ZIP 并启用
+
+不要直接上传 GitHub 自动生成的 Source code ZIP；它的外层目录带有分支后缀，不符合 Claude 自定义 Skill 的目录规则。
+
 ### 在 Codex 中安装
 
 在 Codex 中直接发送：
@@ -111,7 +132,7 @@ https://github.com/hirclelili/career-prep-coach
 ```bash
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
   --repo hirclelili/career-prep-coach \
-  --path . \
+  --path skills/career-prep-coach \
   --name career-prep-coach \
   --method git
 ```
@@ -163,18 +184,19 @@ python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-githu
 
 ```text
 career-prep-coach/
-├── SKILL.md
-├── agents/
-│   └── openai.yaml
-├── references/
-│   ├── experience-workflow.md
-│   ├── experience-dossier.md
-│   ├── interview-workflow.md
-│   ├── interview-manual.md
-│   ├── knowledge-system.md
-│   └── quality-gates.md
-└── scripts/
-    └── validate_artifact.py
+├── .claude-plugin/
+│   ├── marketplace.json
+│   └── plugin.json
+├── dist/
+│   └── career-prep-coach.zip
+└── skills/
+    └── career-prep-coach/
+        ├── SKILL.md
+        ├── agents/
+        │   └── openai.yaml
+        ├── references/
+        └── scripts/
+            └── validate_artifact.py
 ```
 
 ## 产物校验
@@ -182,9 +204,9 @@ career-prep-coach/
 保存 Markdown 产物后，可以运行：
 
 ```bash
-python3 scripts/validate_artifact.py experience <经历档案路径>
-python3 scripts/validate_artifact.py manual <面试手册路径>
-python3 scripts/validate_artifact.py knowledge <知识体系路径>
+python3 skills/career-prep-coach/scripts/validate_artifact.py experience <经历档案路径>
+python3 skills/career-prep-coach/scripts/validate_artifact.py manual <面试手册路径>
+python3 skills/career-prep-coach/scripts/validate_artifact.py knowledge <知识体系路径>
 ```
 
 校验器会检查必需章节、问题数量、思维导图、禁止标记和常见结构错误。
