@@ -1,7 +1,7 @@
 {
   "name": "career-prep-coach",
-  "description": "深挖求职经历，并结合具体 JD 生成面试手册与岗位知识体系。",
-  "version": "1.0.0",
+  "description": "深挖求职经历，生成方向化简历，并结合具体 JD 准备面试。",
+  "version": "1.1.0",
   "author": {
     "name": "hirclelili"
   },
@@ -10,6 +10,7 @@
   "keywords": [
     "career",
     "resume",
+    "resume-strategy",
     "interview",
     "job-description"
   ]

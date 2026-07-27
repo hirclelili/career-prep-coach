@@ -61,8 +61,49 @@ def validate_knowledge(text):
     return errors
 
 
+def validate_resume(text):
+    errors = []
+    section_pattern = re.compile(r"^##\s+(.+?)\s*$", re.MULTILINE)
+    entry_pattern = re.compile(r"^#{3,}\s+(.+?)\s*$", re.MULTILINE)
+    sections = section_pattern.findall(text)
+    entries = entry_pattern.findall(text)
+
+    if not sections:
+        errors.append("缺少简历一级栏目")
+    if not any("教育" in section for section in sections):
+        errors.append("缺少教育背景栏目")
+    if not any(
+        keyword in section
+        for section in sections
+        for keyword in ("实习", "工作", "项目", "校园", "创业")
+    ):
+        errors.append("缺少经历类栏目")
+    if not entries:
+        errors.append("缺少可识别的简历条目")
+
+    normalized_entries = [re.sub(r"\s+", "", entry).lower() for entry in entries]
+    duplicates = sorted({entry for entry in normalized_entries if normalized_entries.count(entry) > 1})
+    if duplicates:
+        errors.append("存在重复的三级条目标题")
+
+    if re.search(r"^##\s*实习\s*[/／·与和]\s*项目经历", text, re.MULTILINE):
+        errors.append("不应合并“实习经历”和“项目经历”栏目")
+    if re.search(r"^#{4,}\s+", text, re.MULTILINE):
+        errors.append("简历条目层级过深，应使用三级标题")
+    if "<!--" in text or "MANUAL_COMPLETE" in text:
+        errors.append("不应包含 HTML 或完成标记")
+
+    forbidden = ("这版简历的使用建议", "针对JD优化建议", "最合适投递的岗位", "需要补充的信息")
+    for phrase in forbidden:
+        if phrase in text:
+            errors.append(f"不应包含简历外说明：{phrase}")
+
+    return errors
+
+
 VALIDATORS = {
     "experience": validate_experience,
+    "resume": validate_resume,
     "manual": validate_manual,
     "knowledge": validate_knowledge,
 }
