@@ -250,4 +250,6 @@ python3 skills/career-prep-coach/scripts/validate_artifact.py knowledge <知识�
 
 ## License
 
-当前项目尚未添加开源许可证。在添加许可证前，代码默认保留全部权利。
+本项目采用 [Apache License 2.0](LICENSE) 开源。
+
+你可以使用、修改和分发这个 Skill，也可以用于商业项目，但需要保留许可证和版权声明。网站产品、托管 API、私有 Agent 调度及未包含在本仓库中的代码不属于本许可证授权范围。

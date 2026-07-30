@@ -11,6 +11,7 @@ trap 'rm -rf "$work_dir"' EXIT
 
 mkdir -p "$output_dir"
 cp -R "$source_dir" "$work_dir/$skill_name"
+cp "$repo_root/LICENSE" "$work_dir/$skill_name/LICENSE"
 find "$work_dir/$skill_name" -name '.DS_Store' -delete
 find "$work_dir/$skill_name" -type d -name '__pycache__' -prune -exec rm -rf {} +
 find "$work_dir/$skill_name" -name '*.pyc' -delete
